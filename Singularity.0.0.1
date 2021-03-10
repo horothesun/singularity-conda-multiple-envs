@@ -1,0 +1,13 @@
+Bootstrap:docker
+From:continuumio/miniconda3:4.9.2
+
+%files
+environment.yml /
+run.sh /
+
+%post
+conda env update --file /environment.yml
+
+%runscript
+conda activate singularity-playground-env
+./run.sh

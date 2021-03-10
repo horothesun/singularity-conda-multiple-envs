@@ -25,7 +25,10 @@ jobs:
       with:
         singularity-version: ${{ env.SINGULARITY_VERSION }}
 
+    - name: Singularity info
+      run: |
+        singularity --version
+
     - name: Build image
       run: |
-        echo "TODO: implement..."
-        singularity --version
+        singularity build image.sif Singularity.0.0.1
