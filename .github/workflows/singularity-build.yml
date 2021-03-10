@@ -9,7 +9,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
+
     env:
       SINGULARITY_VERSION: 3.7.2
 
@@ -25,13 +26,10 @@ jobs:
       with:
         singularity-version: ${{ env.SINGULARITY_VERSION }}
 
-    - name: Install sudo package
-      run: apt update && apt install sudo
-
     - name: Singularity info
       run: |
         singularity --version
 
     - name: Build image
       run: |
-        sudo singularity build image.sif Singularity.0.0.1
+        sudo -E singularity build image.sif Singularity.0.0.1
