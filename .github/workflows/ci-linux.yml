@@ -56,12 +56,3 @@ jobs:
     - name: Run Singularity playground
       run: |
         ./$FOLDER_NAME/run.sh
-
-    - name: Upload artifact
-      run: |
-        echo "TODO: upload artifact..."
-#      uses: actions/upload-artifact@v2
-#      with:
-#        name: <artifact-name>
-#        path: ${{ env.FOLDER_NAME }}/out/<file-to-upload>
-#        if-no-files-found: error
