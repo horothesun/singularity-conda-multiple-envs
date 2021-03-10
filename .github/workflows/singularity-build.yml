@@ -31,4 +31,4 @@ jobs:
 
     - name: Build image
       run: |
-        singularity build image.sif Singularity.0.0.1
+        sudo singularity build image.sif Singularity.0.0.1
