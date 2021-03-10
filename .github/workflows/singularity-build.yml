@@ -32,4 +32,4 @@ jobs:
 
     - name: Build image
       run: |
-        sudo -E singularity build image.sif Singularity.0.0.1
+        singularity build --fakeroot image.sif Singularity.0.0.1
