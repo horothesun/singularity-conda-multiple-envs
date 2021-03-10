@@ -25,6 +25,9 @@ jobs:
       with:
         singularity-version: ${{ env.SINGULARITY_VERSION }}
 
+    - name: Install sudo package
+      run: apt update && apt install sudo
+
     - name: Singularity info
       run: |
         singularity --version
