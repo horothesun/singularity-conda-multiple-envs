@@ -10,6 +10,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-20.04
+    env:
+      SINGULARITY_VERSION: 3.7.2
 
     steps:
     - name: Cancel previous runs
@@ -21,7 +23,7 @@ jobs:
 
     - uses: eWaterCycle/setup-singularity@v6
       with:
-        singularity-version: 3.7.2
+        singularity-version: ${{ env.SINGULARITY_VERSION }}
 
     - name: Build image
       run: |
