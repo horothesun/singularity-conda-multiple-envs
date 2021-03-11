@@ -13,6 +13,8 @@ jobs:
 
     env:
       SINGULARITY_VERSION: 3.7.2
+      RECIPE_FILENAME: Singularity.0.0.1
+      IMAGE_FILENAME: image.sif
 
     steps:
     - name: Cancel previous runs
@@ -32,4 +34,21 @@ jobs:
 
     - name: Build image
       run: |
-        singularity build --fakeroot image.sif Singularity.0.0.1
+        singularity build --fakeroot $IMAGE_FILENAME $RECIPE_FILENAME
+
+    - name: Image info
+      run: |
+        ls -lah $IMAGE_FILENAME
+        singularity inspect $IMAGE_FILENAME
+        singularity inspect --deffile $IMAGE_FILENAME
+
+    - name: Run image
+      run: |
+        singularity run $IMAGE_FILENAME
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: image
+        path: ${{ env.IMAGE_FILENAME }}
+        if-no-files-found: error
