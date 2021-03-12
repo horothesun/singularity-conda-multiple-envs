@@ -9,5 +9,5 @@ run.sh /
 conda env update --file /environment.yml
 
 %runscript
-conda activate singularity-playground-env
-./run.sh
+export PATH=/opt/conda/envs/singularity-playground-env/bin:$PATH
+/run.sh
