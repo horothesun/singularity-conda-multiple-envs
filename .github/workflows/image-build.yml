@@ -1,4 +1,4 @@
-name: Singularity build
+name: Image build
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     env:
       SINGULARITY_VERSION: 3.7.2
@@ -39,7 +39,9 @@ jobs:
     - name: Image info
       run: |
         ls -lah $IMAGE_FILENAME
+        echo "---"
         singularity inspect $IMAGE_FILENAME
+        echo "---"
         singularity inspect --deffile $IMAGE_FILENAME
 
     - name: Run image

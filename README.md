@@ -1,22 +1,32 @@
-# Singularity image from Conda script
+# Singularity image from Conda multi-environment script
 
 [![First env CI](https://github.com/horothesun/singularity-playground/actions/workflows/first-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/first-env-ci-linux.yml)
 [![Second env CI](https://github.com/horothesun/singularity-playground/actions/workflows/second-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/second-env-ci-linux.yml)
 [![Third env CI](https://github.com/horothesun/singularity-playground/actions/workflows/third-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/third-env-ci-linux.yml)
-[![Singularity build](https://github.com/horothesun/singularity-playground/actions/workflows/singularity-build.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/singularity-build.yml)
 
-[Singularity](https://singularity.lbl.gov/) containerization of a Conda-based `bash` script.
+[Singularity](https://singularity.lbl.gov/) containerization of a Conda-based multi-environment `bash` script.
 
 ## Requirements
 
-- Conda ([install](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)) for [manual script execution](#manual-script-execution) and
+- Conda ([install](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)) for [manual execution](#manual-execution) and
 - Docker for [local Singularity image build](#local-singularity-image-build).
 
-## <a name="manual-script-execution"></a> Manual script execution
+## <a name="manual-execution"></a> Manual execution
 
 ```bash
-conda env update --file environment.yml
-conda activate singularity-playground-env
+# environments creation
+conda env update --file environment-01.yml
+conda env update --file environment-02.yml
+conda env update --file environment-03.yml
+
+# run.sh in different environments
+conda activate first-env
+./run.sh
+
+conda activate second-env
+./run.sh
+
+conda activate third-env
 ./run.sh
 ```
 
