@@ -1,7 +1,0 @@
-name: singularity-playground-env
-
-channels:
-- conda-forge
-
-dependencies:
-- emacs=27.1

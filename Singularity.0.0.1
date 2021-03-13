@@ -2,12 +2,18 @@ Bootstrap:docker
 From:continuumio/miniconda3:4.9.2
 
 %files
-environment.yml /
+environment-01.yml /
+environment-02.yml /
+environment-03.yml /
 run.sh /
+runscript.sh /
 
 %post
-conda env update --file /environment.yml
+echo "source /opt/conda/etc/profile.d/conda.sh" >> $SINGULARITY_ENVIRONMENT
+echo "conda init bash" >> $SINGULARITY_ENVIRONMENT
+conda env update --file /environment-01.yml
+conda env update --file /environment-02.yml
+conda env update --file /environment-03.yml
 
 %runscript
-export PATH=/opt/conda/envs/singularity-playground-env/bin:$PATH
-/run.sh
+bash -i /runscript.sh

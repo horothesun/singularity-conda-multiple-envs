@@ -2,6 +2,6 @@
 
 echo "Start run.sh..."
 
-emacs --version
+python -V
 
 echo "... end run.sh"

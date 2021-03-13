@@ -25,8 +25,11 @@ Run `quay.io/singularity` Docker image and access its `bash` with
 ```bash
 docker run \
   --interactive --tty --rm --privileged \
-  --volume $(pwd)/environment.yml:/go/environment.yml \
+  --volume $(pwd)/environment-01.yml:/go/environment-01.yml \
+  --volume $(pwd)/environment-02.yml:/go/environment-02.yml \
+  --volume $(pwd)/environment-03.yml:/go/environment-03.yml \
   --volume $(pwd)/run.sh:/go/run.sh \
+  --volume $(pwd)/runscript.sh:/go/runscript.sh \
   --volume $(pwd)/Singularity.0.0.1:/go/Singularity.0.0.1 \
   --volume $(pwd)/out:/go/out \
   --entrypoint /bin/bash \
