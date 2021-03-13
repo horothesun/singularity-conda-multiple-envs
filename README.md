@@ -1,10 +1,10 @@
 # Singularity image from Conda multi-environment script
 
-[![First env CI](https://github.com/horothesun/singularity-playground/actions/workflows/first-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/first-env-ci-linux.yml)
-[![Second env CI](https://github.com/horothesun/singularity-playground/actions/workflows/second-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/second-env-ci-linux.yml)
-[![Third env CI](https://github.com/horothesun/singularity-playground/actions/workflows/third-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/third-env-ci-linux.yml)
+[![First env CI](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/first-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/first-env-ci-linux.yml)
+[![Second env CI](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/second-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/second-env-ci-linux.yml)
+[![Third env CI](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/third-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/third-env-ci-linux.yml)
 
-[![Image build](https://github.com/horothesun/singularity-playground/actions/workflows/image-build-linux.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/image-build-linux.yml)
+[![Image build](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/image-build-linux.yml/badge.svg)](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/image-build-linux.yml)
 
 [Singularity](https://singularity.lbl.gov/) containerization of a Conda-based multi-environment `bash` script.
 
