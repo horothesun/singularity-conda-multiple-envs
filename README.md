@@ -1,5 +1,8 @@
 # Singularity image from Conda script
 
+[![First env CI](https://github.com/horothesun/singularity-playground/actions/workflows/first-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/first-env-ci-linux.yml)
+[![Second env CI](https://github.com/horothesun/singularity-playground/actions/workflows/second-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/second-env-ci-linux.yml)
+[![Third env CI](https://github.com/horothesun/singularity-playground/actions/workflows/third-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/third-env-ci-linux.yml)
 [![Singularity build](https://github.com/horothesun/singularity-playground/actions/workflows/singularity-build.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/singularity-build.yml)
 
 [Singularity](https://singularity.lbl.gov/) containerization of a Conda-based `bash` script.
