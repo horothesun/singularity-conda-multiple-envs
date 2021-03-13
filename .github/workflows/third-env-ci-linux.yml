@@ -1,0 +1,58 @@
+name: Third env CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch: # enable manual execution
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    env:
+      FOLDER_NAME: .
+      CONDA_ENV_NAME: third-env
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+    - name: Cancel previous runs
+      uses: styfle/cancel-workflow-action@0.8.0
+      with:
+        access_token: ${{ github.token }}
+
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Cache conda
+      uses: actions/cache@v2
+      env:
+        # increase this value to reset cache even if environment.yml has not changed
+        CACHE_NUMBER: 0
+        CONDA_ENVIRONMENT_FILE: ${{ env.FOLDER_NAME }}/environment.yml
+      with:
+        path: ~/conda_pkgs_dir
+        key: ${{ env.CONDA_ENV_NAME }}-${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles(env.CONDA_ENVIRONMENT_FILE) }}
+
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: ${{ env.CONDA_ENV_NAME }}
+        channel-priority: flexible
+        environment-file: ${{ env.FOLDER_NAME }}/environment-03.yml
+        use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
+
+    - name: Conda info
+      run: |
+        conda info
+        conda env list
+        conda env export
+
+    - name: Run Singularity playground
+      run: |
+        ./$FOLDER_NAME/run.sh

@@ -1,6 +1,5 @@
 # Singularity image from Conda script
 
-[![CI Linux](https://github.com/horothesun/singularity-playground/actions/workflows/ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/ci-linux.yml)
 [![Singularity build](https://github.com/horothesun/singularity-playground/actions/workflows/singularity-build.yml/badge.svg)](https://github.com/horothesun/singularity-playground/actions/workflows/singularity-build.yml)
 
 [Singularity](https://singularity.lbl.gov/) containerization of a Conda-based `bash` script.
