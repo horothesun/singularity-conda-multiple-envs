@@ -52,8 +52,10 @@ jobs:
     - name: Set Singularity Cloud token
       run: |
         mkdir -p ~/.singularity/
-        echo ${{ secrets.SINGULARITY_CLOUD_TOKEN }} > ~/.singularity/sylabs-token
+        echo "$SINGULARITY_CLOUD_TOKEN" > ~/.singularity/sylabs-token
         ls -lah ~/.singularity
+      env:
+        SINGULARITY_CLOUD_TOKEN: ${{ secrets.SINGULARITY_CLOUD_TOKEN }}
 
     - name: Set Singularity PGP secret
       run: |
