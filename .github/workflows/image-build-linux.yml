@@ -40,13 +40,15 @@ jobs:
       run: |
         mkdir -p ~/.singularity/
         echo ${{ secrets.SINGULARITY_CLOUD_TOKEN }} > ~/.singularity/sylabs-token
-        ls -lah ~/.singularity/sylabs-token
+        ls -lah ~/.singularity
+        wc ~/.singularity/sylabs-token
 
     - name: Set Singularity PGP secret
       run: |
         mkdir -p ~/.singularity/sypgp/
         printf "$SINGULARITY_PGP_SECRET_BASE64" | base64 --decode > ~/.singularity/sypgp/pgp-secret
         ls -lah ~/.singularity/sypgp
+        wc ~/.singularity/sypgp/pgp-secret
       env:
         SINGULARITY_PGP_SECRET_BASE64: ${{ secrets.SINGULARITY_PGP_SECRET_BASE64 }}
 
@@ -61,6 +63,22 @@ jobs:
         singularity inspect $IMAGE_FILENAME
         echo "---"
         singularity inspect --deffile $IMAGE_FILENAME
+
+    - name: Verify image
+      run: |
+        singularity verify $IMAGE_FILENAME
+
+    - name: Sign image
+      run: |
+        export IMAGE_FILENAME
+        export SINGULARITY_PGP_PASSPHRASE
+        ./non_interactive_image_sign.sh
+      env:
+        SINGULARITY_PGP_PASSPHRASE: ${{ secrets.SINGULARITY_PGP_PASSPHRASE }}
+
+    - name: Verify image
+      run: |
+        singularity verify $IMAGE_FILENAME
 
     - name: Run image
       run: |
