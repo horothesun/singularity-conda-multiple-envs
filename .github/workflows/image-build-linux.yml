@@ -37,31 +37,15 @@ jobs:
       run: |
         singularity --version
 
-    - name: Singularity keys search
-      run: |
-        singularity keys search -l horothesun@gmail.com
-
-    - name: Set Singularity Cloud token
-      run: |
-        mkdir -p $SINGULARITY_CONFIG_FOLDER
-        echo $SINGULARITY_CLOUD_TOKEN > $SINGULARITY_SYLABS_TOKEN_FILE
-        ls -lah $SINGULARITY_CONFIG_FOLDER
-      env:
-        SINGULARITY_CLOUD_TOKEN: ${{ secrets.SINGULARITY_CLOUD_TOKEN }}
-        SINGULARITY_CONFIG_FOLDER: ~/.singularity
-        SINGULARITY_SYLABS_TOKEN_FILE: ~/.singularity/sylabs-token
-
-    - name: Set Singularity PGP secret
-      run: |
-        mkdir -p $SINGULARITY_SYPGP_FOLDER
-        chmod 700 $SINGULARITY_SYPGP_FOLDER
-        echo "$SINGULARITY_PGP_SECRET_BASE64" | base64 --decode > $SINGULARITY_PGP_SECRET_FILE
-        chmod 600 $SINGULARITY_PGP_SECRET_FILE
-        ls -lah $SINGULARITY_SYPGP_FOLDER
-      env:
-        SINGULARITY_PGP_SECRET_BASE64: ${{ secrets.SINGULARITY_PGP_SECRET_BASE64 }}
-        SINGULARITY_SYPGP_FOLDER: ~/.singularity/sypgp
-        SINGULARITY_PGP_SECRET_FILE: ~/.singularity/sypgp/pgp-secret
+    # - name: Set Singularity Cloud token
+    #   run: |
+    #     mkdir -p $SINGULARITY_CONFIG_FOLDER
+    #     echo $SINGULARITY_CLOUD_TOKEN > $SINGULARITY_SYLABS_TOKEN_FILE
+    #     ls -lah $SINGULARITY_CONFIG_FOLDER
+    #   env:
+    #     SINGULARITY_CLOUD_TOKEN: ${{ secrets.SINGULARITY_CLOUD_TOKEN }}
+    #     SINGULARITY_CONFIG_FOLDER: ~/.singularity
+    #     SINGULARITY_SYLABS_TOKEN_FILE: ~/.singularity/sylabs-token
 
     - name: Build image
       run: |
@@ -74,6 +58,18 @@ jobs:
         singularity inspect $IMAGE_FILENAME
         echo "---"
         singularity inspect --deffile $IMAGE_FILENAME
+
+    - name: Set Singularity PGP secret
+      run: |
+        mkdir -p $SINGULARITY_SYPGP_FOLDER
+        chmod 700 $SINGULARITY_SYPGP_FOLDER
+        echo "$SINGULARITY_PGP_SECRET_BASE64" | base64 --decode > $SINGULARITY_PGP_SECRET_FILE
+        chmod 600 $SINGULARITY_PGP_SECRET_FILE
+        ls -lah $SINGULARITY_SYPGP_FOLDER
+      env:
+        SINGULARITY_PGP_SECRET_BASE64: ${{ secrets.SINGULARITY_PGP_SECRET_BASE64 }}
+        SINGULARITY_SYPGP_FOLDER: ~/.singularity/sypgp
+        SINGULARITY_PGP_SECRET_FILE: ~/.singularity/sypgp/pgp-secret
 
     - name: Sign image
       run: |
