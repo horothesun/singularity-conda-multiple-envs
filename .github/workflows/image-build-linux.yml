@@ -32,6 +32,22 @@ jobs:
       run: |
         singularity --version
 
+    - name: Singularity keys search
+      run: |
+        singularity keys search -l horothesun@gmail.com
+
+    - name: Set Singularity Cloud token
+      run: |
+        mkdir -p ~/.singularity/
+        echo ${{ secrets.SINGULARITY_CLOUD_TOKEN }} > ~/.singularity/sylabs-token
+
+    - name: Set Singularity PGP secret
+      run: |
+        mkdir -p ~/.singularity/sypgp/
+        printf "$SINGULARITY_PGP_SECRET_BASE64" | base64 --decode > ~/.singularity/sypgp/pgp-secret
+      env:
+        SINGULARITY_PGP_SECRET_BASE64: ${{ secrets.SINGULARITY_PGP_SECRET_BASE64 }}
+
     - name: Build image
       run: |
         singularity build --fakeroot $IMAGE_FILENAME $RECIPE_FILENAME
