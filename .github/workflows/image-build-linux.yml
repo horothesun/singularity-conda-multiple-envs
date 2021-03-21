@@ -37,16 +37,6 @@ jobs:
       run: |
         singularity --version
 
-    # - name: Set Singularity Cloud token
-    #   run: |
-    #     mkdir -p $SINGULARITY_CONFIG_FOLDER
-    #     echo $SINGULARITY_CLOUD_TOKEN > $SINGULARITY_SYLABS_TOKEN_FILE
-    #     ls -lah $SINGULARITY_CONFIG_FOLDER
-    #   env:
-    #     SINGULARITY_CLOUD_TOKEN: ${{ secrets.SINGULARITY_CLOUD_TOKEN }}
-    #     SINGULARITY_CONFIG_FOLDER: ~/.singularity
-    #     SINGULARITY_SYLABS_TOKEN_FILE: ~/.singularity/sylabs-token
-
     - name: Build image
       run: |
         singularity build --fakeroot $IMAGE_FILENAME $RECIPE_FILENAME
@@ -58,6 +48,16 @@ jobs:
         singularity inspect $IMAGE_FILENAME
         echo "---"
         singularity inspect --deffile $IMAGE_FILENAME
+
+    - name: Set Singularity Cloud token
+      run: |
+        mkdir -p $SINGULARITY_CONFIG_FOLDER
+        echo $SINGULARITY_CLOUD_TOKEN > $SINGULARITY_SYLABS_TOKEN_FILE
+        ls -lah $SINGULARITY_CONFIG_FOLDER
+      env:
+        SINGULARITY_CLOUD_TOKEN: ${{ secrets.SINGULARITY_CLOUD_TOKEN }}
+        SINGULARITY_CONFIG_FOLDER: ~/.singularity
+        SINGULARITY_SYLABS_TOKEN_FILE: ~/.singularity/sylabs-token
 
     - name: Set Singularity PGP secret
       run: |
