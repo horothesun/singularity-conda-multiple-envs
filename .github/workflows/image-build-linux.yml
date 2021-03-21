@@ -24,6 +24,10 @@ jobs:
 
     - uses: actions/checkout@v2
 
+    - name: Check expect version
+      run: |
+        which expect
+
     - uses: eWaterCycle/setup-singularity@v6
       with:
         singularity-version: ${{ env.SINGULARITY_VERSION }}
