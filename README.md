@@ -66,3 +66,21 @@ singularity inspect --deffile $IMAGE_FILENAME
 # run
 singularity run $IMAGE_FILENAME
 ```
+
+## Singularity image signing
+
+Login into [Sylabs.io](https://cloud.sylabs.io/auth) and generate a Singularity Cloud token. Download the token file and save it to `~/.singularity/sylabs-token`.
+
+To generate a new key to sign a Singularity image in a GitHub Action, run
+
+```bash
+singularity keys newpair
+```
+
+and publish the public key on the Singularity Cloud.
+
+Then update the repository secrets as follows
+
+- `SINGULARITY_CLOUD_TOKEN`: run `< ~/.singularity/sylabs-token | base64 | pbcopy` (on macOS) and paste the content of your clipboard as value of the secret,
+- `SINGULARITY_PGP_PASSPHRASE`: newly generated key's `passphrase` and
+- `SINGULARITY_PGP_SECRET_BASE64`: run `< ~/.singularity/sypgp/pgp-secret | base64 | pbcopy` (on macOS) and paste the content of your clipboard as value of the secret.
