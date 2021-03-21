@@ -40,11 +40,13 @@ jobs:
       run: |
         mkdir -p ~/.singularity/
         echo ${{ secrets.SINGULARITY_CLOUD_TOKEN }} > ~/.singularity/sylabs-token
+        ls -lah ~/.singularity/sylabs-token
 
     - name: Set Singularity PGP secret
       run: |
         mkdir -p ~/.singularity/sypgp/
         printf "$SINGULARITY_PGP_SECRET_BASE64" | base64 --decode > ~/.singularity/sypgp/pgp-secret
+        ls -lah ~/.singularity/sypgp
       env:
         SINGULARITY_PGP_SECRET_BASE64: ${{ secrets.SINGULARITY_PGP_SECRET_BASE64 }}
 
