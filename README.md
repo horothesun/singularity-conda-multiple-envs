@@ -44,7 +44,7 @@ docker run \
   --volume $(pwd)/environment-03.yml:/go/environment-03.yml \
   --volume $(pwd)/run.sh:/go/run.sh \
   --volume $(pwd)/runscript.sh:/go/runscript.sh \
-  --volume $(pwd)/Singularity.0.0.1:/go/Singularity.0.0.1 \
+  --volume $(pwd)/singularity-image.def:/go/singularity-image.def \
   --volume $(pwd)/out:/go/out \
   --entrypoint /bin/bash \
   quay.io/singularity/singularity:v3.7.2
@@ -56,7 +56,7 @@ then, from within the container's `bash` run
 export IMAGE_FILENAME=/go/out/image.sif
 
 # build
-singularity build $IMAGE_FILENAME Singularity.0.0.1
+singularity build $IMAGE_FILENAME singularity-image.def
 
 # inspect
 ls -lah $IMAGE_FILENAME

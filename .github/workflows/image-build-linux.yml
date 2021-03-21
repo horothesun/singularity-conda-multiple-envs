@@ -13,7 +13,7 @@ jobs:
 
     env:
       SINGULARITY_VERSION: 3.7.2
-      RECIPE_FILENAME: Singularity.0.0.1
+      RECIPE_FILENAME: singularity-image.def
       IMAGE_FILENAME: image.sif
 
     steps:

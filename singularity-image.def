@@ -1,0 +1,19 @@
+Bootstrap:docker
+From:continuumio/miniconda3:4.9.2
+
+%files
+  environment-01.yml /
+  environment-02.yml /
+  environment-03.yml /
+  run.sh /
+  runscript.sh /
+
+%post
+  echo "source /opt/conda/etc/profile.d/conda.sh" >> $SINGULARITY_ENVIRONMENT
+  echo "conda init bash" >> $SINGULARITY_ENVIRONMENT
+  conda env update --file /environment-01.yml
+  conda env update --file /environment-02.yml
+  conda env update --file /environment-03.yml
+
+%runscript
+  bash -i /runscript.sh
