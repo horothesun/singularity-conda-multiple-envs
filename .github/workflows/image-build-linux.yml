@@ -37,23 +37,12 @@ jobs:
       run: |
         singularity --version
 
-    - name: Build image
-      run: |
-        singularity build --fakeroot $IMAGE_FILENAME $RECIPE_FILENAME
-
-    - name: Image info
-      run: |
-        ls -lah $IMAGE_FILENAME
-        echo "---"
-        singularity inspect $IMAGE_FILENAME
-        echo "---"
-        singularity inspect --deffile $IMAGE_FILENAME
-
     - name: Set Singularity Cloud token
       run: |
         mkdir -p $SINGULARITY_CONFIG_FOLDER
         echo $SINGULARITY_CLOUD_TOKEN > $SINGULARITY_SYLABS_TOKEN_FILE
         ls -lah $SINGULARITY_CONFIG_FOLDER
+        wc $SINGULARITY_SYLABS_TOKEN_FILE
       env:
         SINGULARITY_CLOUD_TOKEN: ${{ secrets.SINGULARITY_CLOUD_TOKEN }}
         SINGULARITY_CONFIG_FOLDER: ~/.singularity
@@ -66,10 +55,23 @@ jobs:
         echo "$SINGULARITY_PGP_SECRET_BASE64" | base64 --decode > $SINGULARITY_PGP_SECRET_FILE
         chmod 600 $SINGULARITY_PGP_SECRET_FILE
         ls -lah $SINGULARITY_SYPGP_FOLDER
+        wc $SINGULARITY_PGP_SECRET_FILE
       env:
         SINGULARITY_PGP_SECRET_BASE64: ${{ secrets.SINGULARITY_PGP_SECRET_BASE64 }}
         SINGULARITY_SYPGP_FOLDER: ~/.singularity/sypgp
         SINGULARITY_PGP_SECRET_FILE: ~/.singularity/sypgp/pgp-secret
+
+    - name: Build image
+      run: |
+        singularity build --fakeroot $IMAGE_FILENAME $RECIPE_FILENAME
+
+    - name: Image info
+      run: |
+        ls -lah $IMAGE_FILENAME
+        echo "---"
+        singularity inspect $IMAGE_FILENAME
+        echo "---"
+        singularity inspect --deffile $IMAGE_FILENAME
 
     - name: Sign image
       run: |
