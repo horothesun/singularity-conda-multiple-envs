@@ -73,10 +73,9 @@ jobs:
 
     - name: Sign image
       run: |
-        export IMAGE_FILENAME
-        export SINGULARITY_PGP_PASSPHRASE
         ./non_interactive_image_sign.sh
       env:
+        IMAGE_FILENAME: ${{ env.IMAGE_FILENAME }}
         SINGULARITY_PGP_PASSPHRASE: ${{ secrets.SINGULARITY_PGP_PASSPHRASE }}
 
     - name: Verify image
