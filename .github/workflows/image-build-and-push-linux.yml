@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-20.04
 
     env:
-      SINGULARITY_VERSION: 3.7.2
-      RECIPE_FILENAME: singularity-image.def
       IMAGE_FILENAME: image.sif
 
     steps:
@@ -21,14 +19,17 @@ jobs:
 
     - uses: actions/checkout@v2
 
-    - name: Install expect
+    - name: Expect setup
       run: |
         sudo apt-get install expect
         which expect
 
-    - uses: eWaterCycle/setup-singularity@v6
+    - name: Singularity setup
+      uses: eWaterCycle/setup-singularity@v6
       with:
         singularity-version: ${{ env.SINGULARITY_VERSION }}
+      env:
+        SINGULARITY_VERSION: 3.7.2
 
     - name: Singularity info
       run: |
@@ -37,6 +38,8 @@ jobs:
     - name: Build image
       run: |
         singularity build --fakeroot $IMAGE_FILENAME $RECIPE_FILENAME
+      env:
+        RECIPE_FILENAME: singularity-image.def
 
     - name: Image info
       run: |
@@ -88,18 +91,18 @@ jobs:
 
     - name: Singularity login
       run: |
-        singularity remote login --tokenfile ~/.singularity/sylabs-token $REMOTE_NAME
+        singularity remote login --tokenfile ~/.singularity/sylabs-token $SINGULARITY_REMOTE_NAME
       env:
-        REMOTE_NAME: SylabsCloud
+        SINGULARITY_REMOTE_NAME: SylabsCloud
 
     - name: Push image
       run: |
         GITHUB_TAG=${GITHUB_REF#refs/tags/}
         echo "GITHUB_TAG: $GITHUB_TAG"
         singularity push --description "$IMAGE_DESCRIPTION" \
-          $IMAGE_FILENAME library://$USER/$COLLECTION/$CONTAINER:$GITHUB_TAG
+          $IMAGE_FILENAME library://$SINGULARITY_USER/$SINGULARITY_COLLECTION/$SINGULARITY_CONTAINER:$GITHUB_TAG
       env:
-        USER: horothesun
-        COLLECTION: default
-        CONTAINER: singularity-conda-multiple-envs
+        SINGULARITY_USER: horothesun
+        SINGULARITY_COLLECTION: default
+        SINGULARITY_CONTAINER: singularity-conda-multiple-envs
         IMAGE_DESCRIPTION: Singularity containerization of a Conda-based multi-environment bash script.
