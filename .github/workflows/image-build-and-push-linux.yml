@@ -1,11 +1,8 @@
-name: Image build
+name: Image build and push
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-  workflow_dispatch: # enable manual execution
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -82,9 +79,15 @@ jobs:
       run: |
         singularity run $IMAGE_FILENAME
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: image
-        path: ${{ env.IMAGE_FILENAME }}
-        if-no-files-found: error
+    # - name: Upload artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: image
+    #     path: ${{ env.IMAGE_FILENAME }}
+    #     if-no-files-found: error
+
+    - name: Push image
+      run: |
+        GITHUB_TAG=${GITHUB_REF#refs/tags/}
+        echo "GITHUB_TAG=$GITHUB_TAG"
+        singularity push $IMAGE_FILENAME library://horothesun/default/singularity-conda-multiple-envs.sif:GITHUB_TAG
