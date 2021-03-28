@@ -47,6 +47,14 @@ jobs:
         echo "---"
         singularity inspect --deffile $IMAGE_FILENAME
 
+    - name: Set Singularity Cloud token
+      run: |
+        mkdir -p ~/.singularity/
+        echo "$SINGULARITY_CLOUD_TOKEN" > $TOKEN_FILE_PATH
+        ls -lah ~/.singularity
+      env:
+        SINGULARITY_CLOUD_TOKEN: ${{ secrets.SINGULARITY_CLOUD_TOKEN }}
+
     - name: Set Singularity PGP secret
       run: |
         mkdir -p ~/.singularity/sypgp/
@@ -78,14 +86,6 @@ jobs:
     #     name: image
     #     path: ${{ env.IMAGE_FILENAME }}
     #     if-no-files-found: error
-
-    - name: Set Singularity Cloud token
-      run: |
-        mkdir -p ~/.singularity/
-        echo "$SINGULARITY_CLOUD_TOKEN" > $TOKEN_FILE_PATH
-        ls -lah ~/.singularity
-      env:
-        SINGULARITY_CLOUD_TOKEN: ${{ secrets.SINGULARITY_CLOUD_TOKEN }}
 
     - name: Singularity login
       run: |
