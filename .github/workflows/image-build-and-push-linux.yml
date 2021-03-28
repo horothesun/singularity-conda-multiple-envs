@@ -12,6 +12,7 @@ jobs:
       SINGULARITY_VERSION: 3.7.2
       RECIPE_FILENAME: singularity-image.def
       IMAGE_FILENAME: image.sif
+      TOKEN_FILE_PATH: ~/.singularity/sylabs-token
 
     steps:
     - name: Cancel previous runs
@@ -46,14 +47,6 @@ jobs:
         echo "---"
         singularity inspect --deffile $IMAGE_FILENAME
 
-    - name: Set Singularity Cloud token
-      run: |
-        mkdir -p ~/.singularity/
-        echo "$SINGULARITY_CLOUD_TOKEN" > ~/.singularity/sylabs-token
-        ls -lah ~/.singularity
-      env:
-        SINGULARITY_CLOUD_TOKEN: ${{ secrets.SINGULARITY_CLOUD_TOKEN }}
-
     - name: Set Singularity PGP secret
       run: |
         mkdir -p ~/.singularity/sypgp/
@@ -86,12 +79,28 @@ jobs:
     #     path: ${{ env.IMAGE_FILENAME }}
     #     if-no-files-found: error
 
+    - name: Set Singularity Cloud token
+      run: |
+        mkdir -p ~/.singularity/
+        echo $SINGULARITY_CLOUD_TOKEN > $TOKEN_FILE_PATH
+        ls -lah ~/.singularity
+      env:
+        SINGULARITY_CLOUD_TOKEN: ${{ secrets.SINGULARITY_CLOUD_TOKEN }}
+
+    - name: Singularity login
+      run: |
+        singularity remote login --tokenfile $TOKEN_FILE_PATH $REMOTE_NAME
+      env:
+        REMOTE_NAME: SylabsCloud
+
     - name: Push image
       run: |
         GITHUB_TAG=${GITHUB_REF#refs/tags/}
         echo "GITHUB_TAG: $GITHUB_TAG"
-        singularity remote login --tokenfile ~/.singularity/sylabs-token SylabsCloud
-        singularity push \
-          --description "Singularity containerization of a Conda-based multi-environment bash script." \
-          $IMAGE_FILENAME \
-          library://horothesun/default/singularity-conda-multiple-envs:$GITHUB_TAG
+        singularity push --description $IMAGE_DESCRIPTION \
+          $IMAGE_FILENAME library://$USER/$COLLECTION/$CONTAINER:$GITHUB_TAG
+      env:
+        USER: horothesun
+        COLLECTION: default
+        CONTAINER: singularity-conda-multiple-envs
+        IMAGE_DESCRIPTION: Singularity containerization of a Conda-based multi-environment bash script.
