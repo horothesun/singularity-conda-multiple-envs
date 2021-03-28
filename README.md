@@ -4,7 +4,7 @@
 [![Second env CI](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/second-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/second-env-ci-linux.yml)
 [![Third env CI](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/third-env-ci-linux.yml/badge.svg)](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/third-env-ci-linux.yml)
 
-[![Image build](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/image-build-linux.yml/badge.svg)](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/image-build-linux.yml)
+[![Image build and push](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/image-build-and-push-linux.yml/badge.svg)](https://github.com/horothesun/singularity-conda-multiple-envs/actions/workflows/image-build-and-push-linux.yml)
 
 [Singularity](https://singularity.lbl.gov/) containerization of a Conda-based multi-environment `bash` script.
 
