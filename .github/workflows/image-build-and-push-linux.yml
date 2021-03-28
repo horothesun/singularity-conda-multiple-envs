@@ -90,4 +90,5 @@ jobs:
       run: |
         GITHUB_TAG=${GITHUB_REF#refs/tags/}
         echo "GITHUB_TAG=$GITHUB_TAG"
+        singularity remote login --tokenfile ~/.singularity/sylabs-token SylabsCloud
         singularity push $IMAGE_FILENAME library://horothesun/default/singularity-conda-multiple-envs.sif:GITHUB_TAG
