@@ -96,7 +96,7 @@ jobs:
       run: |
         GITHUB_TAG=${GITHUB_REF#refs/tags/}
         echo "GITHUB_TAG: $GITHUB_TAG"
-        singularity push --description $IMAGE_DESCRIPTION \
+        singularity push --description "$IMAGE_DESCRIPTION" \
           $IMAGE_FILENAME library://$USER/$COLLECTION/$CONTAINER:$GITHUB_TAG
       env:
         USER: horothesun
