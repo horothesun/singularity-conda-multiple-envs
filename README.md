@@ -81,6 +81,6 @@ and publish the public key on the Singularity Cloud.
 
 Then update the repository secrets as follows
 
-- `SINGULARITY_CLOUD_TOKEN`: run `< ~/.singularity/sylabs-token | base64 | pbcopy` (on macOS) and paste the content of your clipboard as value of the secret,
+- `SINGULARITY_CLOUD_TOKEN`: run `< ~/.singularity/sylabs-token | pbcopy` (on macOS) and paste the content of your clipboard as value of the secret,
 - `SINGULARITY_PGP_PASSPHRASE`: newly generated key's `passphrase` and
 - `SINGULARITY_PGP_SECRET_BASE64`: run `< ~/.singularity/sypgp/pgp-secret | base64 | pbcopy` (on macOS) and paste the content of your clipboard as value of the secret.
