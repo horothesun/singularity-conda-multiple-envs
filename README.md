@@ -17,9 +17,7 @@
 
 ```bash
 # environments creation
-conda env update --file environment-01.yml
-conda env update --file environment-02.yml
-conda env update --file environment-03.yml
+./create_conda_envs.sh
 
 # run.sh in different environments
 conda activate first-env
