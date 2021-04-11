@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     env:
+      RECIPE_FILENAME: singularity-image.def
       IMAGE_FILENAME: image.sif
 
     steps:
@@ -35,11 +36,16 @@ jobs:
       run: |
         singularity --version
 
+    - name: Update recipe image version
+      run: |
+        GITHUB_TAG=${GITHUB_REF#refs/tags/}
+        echo "GITHUB_TAG: $GITHUB_TAG"
+        ex -c "%s/Version .*/Version $GITHUB_TAG" -c "wq" $RECIPE_FILENAME
+        cat $RECIPE_FILENAME
+
     - name: Build image
       run: |
         singularity build --fakeroot $IMAGE_FILENAME $RECIPE_FILENAME
-      env:
-        RECIPE_FILENAME: singularity-image.def
 
     - name: Image info
       run: |

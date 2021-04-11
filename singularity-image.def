@@ -2,6 +2,7 @@ Bootstrap:docker
 From:continuumio/miniconda3:4.9.2
 
 %files
+  create_conda_envs.sh /
   environment-01.yml /
   environment-02.yml /
   environment-03.yml /
@@ -11,9 +12,12 @@ From:continuumio/miniconda3:4.9.2
 %post
   echo "source /opt/conda/etc/profile.d/conda.sh" >> $SINGULARITY_ENVIRONMENT
   echo "conda init bash" >> $SINGULARITY_ENVIRONMENT
-  conda env update --file /environment-01.yml
-  conda env update --file /environment-02.yml
-  conda env update --file /environment-03.yml
+  /create_conda_envs.sh
 
 %runscript
-  bash -i /runscript.sh
+  /runscript.sh
+
+%labels
+  Version x.y.z
+  Author horothesun@gmail.com
+  Repository https://github.com/horothesun/singularity-conda-multiple-envs

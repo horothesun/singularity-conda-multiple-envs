@@ -39,6 +39,7 @@ Run `quay.io/singularity` Docker image and access its `bash` with
 ```bash
 docker run \
   --interactive --tty --rm --privileged \
+  --volume $(pwd)/create_conda_envs.sh:/go/create_conda_envs.sh \
   --volume $(pwd)/environment-01.yml:/go/environment-01.yml \
   --volume $(pwd)/environment-02.yml:/go/environment-02.yml \
   --volume $(pwd)/environment-03.yml:/go/environment-03.yml \
